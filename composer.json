@@ -1,0 +1,32 @@
+{
+    "name": "bristol-su/static-page",
+    "description": "A static page module for the Bristol SU Portal Project, to display text or HTML",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Twigger",
+            "email": "tobytwigger1@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "bristol-su/support": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "BristolSU\\Module\\StaticPage\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BristolSU\\Module\\Tests\\StaticPage\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BristolSU\\Module\\StaticPage\\ModuleServiceProvider"
+            ]
+        }
+    }
+}
