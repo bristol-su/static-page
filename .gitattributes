@@ -1,0 +1,7 @@
+composer.lock
+.gitignore
+.gitattributes
+package-lock.json
+.phpunit.result.cache
+phpunit.xml
+
