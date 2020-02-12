@@ -858,7 +858,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/toby/development/bristolsu/portal/modules/static-page/resources/js/components.js */"./resources/js/components.js");
+module.exports = __webpack_require__(/*! /home/tt15951/development/portal/modules/static-page/resources/js/components.js */"./resources/js/components.js");
 
 
 /***/ })

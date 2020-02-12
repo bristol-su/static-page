@@ -2,7 +2,14 @@
 
 namespace BristolSU\Module\StaticPage;
 
+use BristolSU\Module\StaticPage\CompletionConditions\HasViewedPage;
+use BristolSU\Module\StaticPage\Events\PageViewed;
+use BristolSU\Module\StaticPage\Filters\GroupHasViewedPage;
+use BristolSU\Module\StaticPage\Filters\RoleHasViewedPage;
+use BristolSU\Module\StaticPage\Filters\UserHasViewedPage;
 use BristolSU\Module\StaticPage\VueFields\HtmlField;
+use BristolSU\Support\Completion\Contracts\CompletionConditionManager;
+use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Module\ModuleServiceProvider as ServiceProvider;
 use FormSchema\Generator\Field;
 use FormSchema\Generator\Group;
@@ -21,11 +28,19 @@ class ModuleServiceProvider extends ServiceProvider
             'name' => 'View Admin Page',
             'description' => 'View the administrator page of the module.',
             'admin' => true
+        ],
+        'admin.page-view.index' => [
+            'name' => 'View page views',
+            'description' => 'View all page views for the module.',
+            'admin' => true
         ]
     ];
 
     protected $events = [
-
+        PageViewed::class => [
+            'name' => 'A static page has been viewed',
+            'description' => 'A static page module has been viewed by a participant of the module.'
+        ]
     ];
     
     protected $commands = [
@@ -52,6 +67,12 @@ class ModuleServiceProvider extends ServiceProvider
         parent::boot();
         
         $this->registerGlobalScript('modules/static-page/js/components.js');
+
+        $this->app->make(FilterManager::class)->register('static_page_user_has_viewed_page', UserHasViewedPage::class);
+        $this->app->make(FilterManager::class)->register('static_page_group_has_viewed_page', GroupHasViewedPage::class);
+        $this->app->make(FilterManager::class)->register('static_page_role_has_viewed_page', RoleHasViewedPage::class);
+
+        app(CompletionConditionManager::class)->register($this->alias(), 'static_page_has_viewed_page', HasViewedPage::class);
     }
 
     public function register()

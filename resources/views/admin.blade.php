@@ -1,20 +1,27 @@
 @extends('static-page::layouts.app')
 
-@section('title', 'Your Module')
+@section('title', settings('title', 'Static Page'))
 
 @section('module-content')
     <div class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-12" style="text-align: center;">
-                    <h2 class="">Welcome</h2>
-                    <p class="">
-                        Welcome to your module! This is the administrator side
-                        
-                        <example-component></example-component>
-                    </p>
+                    @if(settings('title') !== null)
+                        <h1 class="">{{settings('title')}}</h1>
+                    @endif
+                    @if(settings('subtitle') !== null)
+                        <h2 class="text-muted">{!! settings('subtitle') !!}</h2>
+                    @endif
+                    <div style="padding-top: 20px;">
+                        <page-views>
+                            
+                        </page-views>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
