@@ -8,6 +8,7 @@ use BristolSU\Module\StaticPage\Models\PageView;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
+use FormSchema\Schema\Form;
 
 class HasViewedPage extends CompletionCondition
 {
@@ -25,24 +26,35 @@ class HasViewedPage extends CompletionCondition
         return PageView::forResource($activityInstance->id, $moduleInstance->id)->count() >= ( $settings['number_of_views'] ?? 1);
     }
 
+    public function percentage($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): int
+    {
+        $count = PageView::forResource($activityInstance->id, $moduleInstance->id)->count();
+        $needed = ( $settings['number_of_views'] ?? 1);
+        
+        $percentage = (int) round(($count/$needed) * 100, 0);
+        
+        if($percentage > 100) {
+            return 100;
+        }
+        return $percentage;
+    }
+
     /**
      * Options required by the completion condition.
      *
-     * This allows for you to get user input to modify the behaviour of this class. For example, you could give an
-     * option of a 'number of files' to be approved before the condition is complete.
-     * [
-     *      'number_of_files' => 1
-     * ]
      * Any settings requested in here will be passed into the percentage or isComplete methods.
      *
-     * @return array
+     * @return Form
+     * @throws \Exception
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [
-            'number_of_views' => ''
-        ];
-    }
+        return \FormSchema\Generator\Form::make()->withField(
+            \FormSchema\Generator\Field::input('number_of_views')->inputType('number')->label('Number of Views')
+                ->required(true)->default(1)->hint('The number of times a user needs to view the page')
+                ->help('The number of times a user should view the page before the module is marked as complete. 1 will mark the module as complete on the first view, 2 on the second etc.')
+        )->getSchema();
+    } 
 
     /**
      * A name for the completion condition

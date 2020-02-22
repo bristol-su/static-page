@@ -51404,8 +51404,8 @@ var vue = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/tt15951/development/portal/modules/static-page/resources/js/module.js */"./resources/js/module.js");
-module.exports = __webpack_require__(/*! /home/tt15951/development/portal/modules/static-page/resources/sass/module.scss */"./resources/sass/module.scss");
+__webpack_require__(/*! /home/toby/development/bristolsu/portal/modules/static-page/resources/js/module.js */"./resources/js/module.js");
+module.exports = __webpack_require__(/*! /home/toby/development/bristolsu/portal/modules/static-page/resources/sass/module.scss */"./resources/sass/module.scss");
 
 
 /***/ })

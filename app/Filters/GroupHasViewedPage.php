@@ -7,6 +7,7 @@ use BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerato
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use FormSchema\Schema\Form;
 
 class GroupHasViewedPage extends GroupFilter
 {
@@ -15,24 +16,31 @@ class GroupHasViewedPage extends GroupFilter
      * Get possible options as an array
      *
      * Array should be a key => value of the option key and the default value
-     * e.g. ['group_name' => 'Group Name Default']
      *
-     * @return array Options
+     * @return Form Options
+     * @throws \Exception
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [
-            'number_of_views' => '',
-            'module_instance_id' => $this->moduleInstances()
-        ];
+        return \FormSchema\Generator\Form::make()->withField(
+            \FormSchema\Generator\Field::select('module_instance_id')->label('Page to View')->featured(true)
+                ->required(true)->hint('The page the group needs to view')
+                ->help('The page the group needs to view before it is added to the logic group.')
+                ->values($this->moduleInstances())
+                ->selectOptions(['noneSelectedText' => 'Please Select a Page', 'hideNoneSelectedText' => false])
+        )->withField(
+            \FormSchema\Generator\Field::input('number_of_views')->inputType('number')->label('Number of Views')
+                ->required(true)->default(1)->hint('The number of times a user needs to view the page')
+                ->help('The number of times a user should view the page before passing the filter. 1 will add the user to the group on the first view, 2 on the second etc.')
+        )->getSchema();
     }
 
     public function moduleInstances()
     {
         return app(ModuleInstanceRepository::class)->allWithAlias('static-page')->filter(function(ModuleInstance $moduleInstance) {
             return $moduleInstance->activity->activity_for === 'group';
-        })->keyBy('id')->map(function(ModuleInstance $moduleInstance) {
-            return $moduleInstance->name;
+        })->map(function(ModuleInstance $moduleInstance) {
+            return ['id' => $moduleInstance->id(), 'name' => $moduleInstance->activity->name . ' - ' . $moduleInstance->name];
         })->toArray();
     }
     
