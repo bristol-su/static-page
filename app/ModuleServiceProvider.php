@@ -68,10 +68,6 @@ class ModuleServiceProvider extends ServiceProvider
         
         $this->registerGlobalScript('modules/static-page/js/components.js');
 
-        $this->app->make(FilterManager::class)->register('static_page_user_has_viewed_page', UserHasViewedPage::class);
-        $this->app->make(FilterManager::class)->register('static_page_group_has_viewed_page', GroupHasViewedPage::class);
-        $this->app->make(FilterManager::class)->register('static_page_role_has_viewed_page', RoleHasViewedPage::class);
-
         app(CompletionConditionManager::class)->register($this->alias(), 'static_page_has_viewed_page', HasViewedPage::class);
     }
 
