@@ -54,7 +54,7 @@ class HasViewedPage extends CompletionCondition
                 ->required(true)->default(1)->hint('The number of times a user needs to view the page')
                 ->help('The number of times a user should view the page before the module is marked as complete. 1 will mark the module as complete on the first view, 2 on the second etc.')
         )->getSchema();
-    } 
+    }
 
     /**
      * A name for the completion condition

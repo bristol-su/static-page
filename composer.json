@@ -15,7 +15,10 @@
     "autoload": {
         "psr-4": {
             "BristolSU\\Module\\StaticPage\\": "app/"
-        }
+        },
+        "classmap": [
+            "database/factories/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

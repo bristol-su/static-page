@@ -4,12 +4,8 @@ namespace BristolSU\Module\StaticPage;
 
 use BristolSU\Module\StaticPage\CompletionConditions\HasViewedPage;
 use BristolSU\Module\StaticPage\Events\PageViewed;
-use BristolSU\Module\StaticPage\Filters\GroupHasViewedPage;
-use BristolSU\Module\StaticPage\Filters\RoleHasViewedPage;
-use BristolSU\Module\StaticPage\Filters\UserHasViewedPage;
 use BristolSU\Module\StaticPage\VueFields\HtmlField;
 use BristolSU\Support\Completion\Contracts\CompletionConditionManager;
-use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Module\ModuleServiceProvider as ServiceProvider;
 use FormSchema\Generator\Field;
 use FormSchema\Generator\Group;

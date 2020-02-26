@@ -4,6 +4,7 @@ namespace BristolSU\Module\StaticPage\Events;
 
 use BristolSU\Module\StaticPage\Models\PageView;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository;
 
 class PageViewed implements TriggerableEvent
@@ -90,7 +91,7 @@ class PageViewed implements TriggerableEvent
     public function getFields(): array
     {
         $moduleInstance = app(ModuleInstanceRepository::class)->getById($this->pageView->module_instance_id);
-        $activityInstance = app(ModuleInstanceRepository::class)->getById($this->pageView->activity_instance_id);
+        $activityInstance = app(ActivityInstanceRepository::class)->getById($this->pageView->activity_instance_id);
         return [
             'user_id' => $this->pageView->user->id(),
             'user_email' => $this->pageView->user->data()->email(),
