@@ -1,7 +1,13 @@
-composer.lock
-.gitignore
-.gitattributes
-package-lock.json
-.phpunit.result.cache
-phpunit.xml
+* text=auto
 
+/.github export-ignore
+/tests export-ignore
+composer.lock export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+package-lock.json export-ignore
+.phpunit.result.cache export-ignore
+phpunit.xml export-ignore
+CHANGELOG.md export-ignore
+CODE_OF_CONDUCT.md export-ignore
+CONTRIBUTING.md export-ignore
