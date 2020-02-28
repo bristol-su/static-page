@@ -506,6 +506,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -582,30 +586,43 @@ var render = function() {
             {
               directives: [
                 {
-                  name: "b-modal",
-                  rawName: "v-b-modal.show-html-editor",
-                  modifiers: { "show-html-editor": true }
+                  name: "b-toggle",
+                  rawName: "v-b-toggle.html-editor",
+                  modifiers: { "html-editor": true }
                 }
               ],
               attrs: { variant: "info" }
             },
             [_c("i", { staticClass: "fa fa-edit" }), _vm._v(" Edit")]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              directives: [
+                {
+                  name: "b-toggle",
+                  rawName: "v-b-toggle.preview",
+                  modifiers: { preview: true }
+                }
+              ],
+              attrs: { variant: "info" }
+            },
+            [_c("i", { staticClass: "fa fa-show" }), _vm._v(" Preview")]
           )
         ],
         1
       ),
       _vm._v(" "),
-      _c("span", { domProps: { innerHTML: _vm._s(_vm.value) } }),
-      _vm._v(" "),
       _c(
-        "b-modal",
-        { attrs: { id: "show-html-editor", size: "xl", title: "Edit HTML" } },
+        "b-collapse",
+        { attrs: { id: "html-editor" } },
         [
           _c("editor", {
             attrs: {
+              disabled: _vm.disabled,
               init: _vm.config,
-              "api-key": "no-api-key",
-              disabled: _vm.disabled
+              "api-key": "no-api-key"
             },
             model: {
               value: _vm.value,
@@ -617,7 +634,13 @@ var render = function() {
           })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("b-collapse", { attrs: { id: "preview" } }, [
+        _c("div", { staticStyle: { border: "1px solid black" } }, [
+          _c("span", { domProps: { innerHTML: _vm._s(_vm.value) } })
+        ])
+      ])
     ],
     1
   )

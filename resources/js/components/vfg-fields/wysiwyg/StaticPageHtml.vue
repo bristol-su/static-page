@@ -1,17 +1,21 @@
 <template>
     <div style="width: 100%">
         <div style="text-align: right;">
-            <b-button variant="info" v-b-modal.show-html-editor><i class="fa fa-edit" /> Edit</b-button>
+            <b-button v-b-toggle.html-editor variant="info"><i class="fa fa-edit"/> Edit</b-button>
+            <b-button v-b-toggle.preview variant="info"><i class="fa fa-show"/> Preview</b-button>
         </div>
-        <span v-html="value"></span>
-        
-        <b-modal id="show-html-editor" size="xl" title="Edit HTML">
-            <editor :init="config"
+        <b-collapse id="html-editor">
+            <editor :disabled="disabled"
+                    :init="config"
                     api-key="no-api-key"
                     v-model="value"
-                    :disabled="disabled"
             ></editor>
-        </b-modal>
+        </b-collapse>
+        <b-collapse id="preview">
+            <div style="border: 1px solid black;">
+                <span v-html="value"></span>
+            </div>
+        </b-collapse>
     </div>
 </template>
 
@@ -21,9 +25,9 @@
 
     export default {
         name: 'StaticPageHtml',
-        
+
         mixins: [abstractField],
-         
+
         components: {
             'editor': Editor
         },
