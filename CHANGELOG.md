@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Tests use SDK testing tools for permissions
+
 ## [1.0] - (28/02/2020)
 
 ### Added

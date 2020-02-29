@@ -13,9 +13,7 @@ class ParticipantPageControllerTest extends TestCase
     /** @test */
     public function a_403_error_is_returned_if_the_permission_is_not_owned()
     {
-        $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate('static-page.view-page')->shouldBeCalled()->willReturn(false);
-        $this->instance(PermissionTester::class, $permissionTester->reveal());
+        $this->revokePermissionTo('static-page.view-page');
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(403);
@@ -24,9 +22,7 @@ class ParticipantPageControllerTest extends TestCase
     /** @test */
     public function the_correct_view_is_returned()
     {
-        $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate('static-page.view-page')->shouldBeCalled()->willReturn(true);
-        $this->instance(PermissionTester::class, $permissionTester->reveal());
+        $this->givePermissionTo('static-page.view-page');
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
@@ -36,9 +32,7 @@ class ParticipantPageControllerTest extends TestCase
     /** @test */
     public function a_page_view_is_not_created_if_the_user_cannot_access_the_page()
     {
-        $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate('static-page.view-page')->shouldBeCalled()->willReturn(false);
-        $this->instance(PermissionTester::class, $permissionTester->reveal());
+        $this->revokePermissionTo('static-page.view-page');
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(403);
@@ -48,9 +42,7 @@ class ParticipantPageControllerTest extends TestCase
     /** @test */
     public function a_page_view_is_created_on_page_load()
     {
-        $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate('static-page.view-page')->shouldBeCalled()->willReturn(true);
-        $this->instance(PermissionTester::class, $permissionTester->reveal());
+        $this->givePermissionTo('static-page.view-page');
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
@@ -65,10 +57,9 @@ class ParticipantPageControllerTest extends TestCase
     /** @test */
     public function an_event_is_fired_on_successful_page_load()
     {
+        $this->givePermissionTo('static-page.view-page');
+
         Event::fake(PageViewed::class);
-        $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate('static-page.view-page')->shouldBeCalled()->willReturn(true);
-        $this->instance(PermissionTester::class, $permissionTester->reveal());
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
@@ -79,10 +70,8 @@ class ParticipantPageControllerTest extends TestCase
     /** @test */
     public function an_event_is_not_fired_on_an_unsuccessful_page_load()
     {
+        $this->revokePermissionTo('static-page.view-page');
         Event::fake(PageViewed::class);
-        $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate('static-page.view-page')->shouldBeCalled()->willReturn(false);
-        $this->instance(PermissionTester::class, $permissionTester->reveal());
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(403);
