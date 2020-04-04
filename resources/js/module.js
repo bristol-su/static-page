@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
-import http from 'http-client';
+import http from '@bristol-su/http-client';
 import AWN from "awesome-notifications";
 
 import ShowHtml from './components/participant/ShowHtml';
