@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - (04/04/2020)
+
+### Added
+- Updated npm dependencies
+
 ## [1.0.1] - (18/03/2020)
 
 ### Changed
@@ -19,5 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial Release
 
 [Unreleased]: https://github.com/bristol-su/static-page/compare/v1.0.1...HEAD
+[1.0.2]: https://github.com/bristol-su/static-page/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/bristol-su/static-page/compare/v1.0...v1.0.1
 [1.0]: https://github.com/bristol-su/static-page/releases/tag/v1.0
