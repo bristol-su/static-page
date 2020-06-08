@@ -14,9 +14,9 @@
                         <h2 class="text-muted">{!! settings('subtitle') !!}</h2>
                     @endif
                     <div style="padding-top: 20px;">
-                        <page-views>
+                        <admin>
                             
-                        </page-views>
+                        </admin>
                     </div>
 
                 </div>

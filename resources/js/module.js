@@ -4,7 +4,7 @@ import http from '@bristol-su/http-client';
 import AWN from "awesome-notifications";
 
 import ShowHtml from './components/participant/ShowHtml';
-import PageViews from './components/admin/PageViews';
+import Admin from './components/admin/Admin';
 
 Vue.prototype.$http = http;
 Vue.prototype.$notify = new AWN({position: 'top-right'});
@@ -15,6 +15,6 @@ let vue = new Vue({
     
     components: {
         ShowHtml,
-        PageViews
+        Admin
     }
 });

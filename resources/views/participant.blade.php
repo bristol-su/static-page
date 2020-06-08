@@ -15,7 +15,9 @@
                     @endif
                         <div style="padding-top: 20px;">
                     <show-html
-                        html="{{settings('html', 'No content has been set.')}}"></show-html>
+                        html="{{settings('html', 'No content has been set.')}}"
+                        :can-click-button="{{(app(\BristolSU\Support\Permissions\Contracts\PermissionTester::class)->evaluate('static-page.click-button')?'true':'false')}}"
+                        button-text="{{settings('button_text', 'Submit')}}"></show-html>
                         </div>
 
                 </div>

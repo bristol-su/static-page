@@ -2,6 +2,7 @@
 
 namespace BristolSU\Module\StaticPage;
 
+use BristolSU\Module\StaticPage\CompletionConditions\HasClickedSubmit;
 use BristolSU\Module\StaticPage\CompletionConditions\HasViewedPage;
 use BristolSU\Module\StaticPage\Events\PageViewed;
 use BristolSU\Module\StaticPage\VueFields\HtmlField;
@@ -18,6 +19,11 @@ class ModuleServiceProvider extends ServiceProvider
         'view-page' => [
             'name' => 'View Participant Page',
             'description' => 'View the main page of the module.',
+            'admin' => false
+        ],
+        'click-button' => [
+            'name' => 'Click Submit Button',
+            'description' => 'Can click the submit button',
             'admin' => false
         ],
         'admin.view-page' => [
@@ -65,6 +71,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->registerGlobalScript('modules/static-page/js/components.js');
 
         app(CompletionConditionManager::class)->register($this->alias(), 'static_page_has_viewed_page', HasViewedPage::class);
+        app(CompletionConditionManager::class)->register($this->alias(), 'static_page_has_submitted', HasClickedSubmit::class);
     }
 
     public function register()
@@ -87,6 +94,10 @@ class ModuleServiceProvider extends ServiceProvider
             )->withField(
                 Field::make(HtmlField::class, 'html')->label('Page Content')
                     ->hint('The content of the page')->help('This is the main content of the page.')
+            )
+        )->withGroup(
+            Group::make('Button')->withField(
+                Field::input('button_text')->inputType('text')->label('Button Text')->hint('Text to show on the button')
             )
         )->getSchema();
     }
