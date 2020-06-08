@@ -5,9 +5,8 @@
             <b-button v-b-toggle.preview variant="info"><i class="fa fa-show"/> Preview</b-button>
         </div>
         <b-collapse id="html-editor">
-            <editor :disabled="disabled"
-                    :init="config"
-                    api-key="no-api-key"
+            <editor :init="config"
+                    :api-key="apiKey"
                     v-model="value"
             ></editor>
         </b-collapse>
@@ -54,6 +53,13 @@
                     toolbar: this.toolbar,
                     width: this.width
                 }
+            },
+            apiKey() {
+                console.log(this.schema.apiKey);
+                if(this.schema.apiKey) {
+                    return this.schema.apiKey;
+                }
+                return 'no-api-key'
             }
         }
     }

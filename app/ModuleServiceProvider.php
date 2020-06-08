@@ -93,6 +93,7 @@ class ModuleServiceProvider extends ServiceProvider
                     ->hint('The subtitle of the page')->help('This will appear below the title. You can use this to give more information about the page.')
             )->withField(
                 Field::make(HtmlField::class, 'html')->label('Page Content')
+                    ->apiKey(config('static-page.tinymce.apiKey'))
                     ->hint('The content of the page')->help('This is the main content of the page.')
             )
         )->withGroup(

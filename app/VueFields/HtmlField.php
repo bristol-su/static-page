@@ -9,11 +9,15 @@ class HtmlField extends Field
     
     protected $type = 'staticPageHtml';
 
+    protected $apiKey = '';
+    
     /**
      * @inheritDoc
      */
     public function getAppendedAttributes(): array
     {
-       return [];
+       return [
+           'apiKey' => $this->apiKey
+       ];
     }
 }

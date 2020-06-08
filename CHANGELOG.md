@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - (08/06/2020)
+
+### Added
+- Allow for an API key to be used
+
 ## [1.0.3] - (08/06/2020)
 
 ### Added
@@ -28,7 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/static-page/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/bristol-su/static-page/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/bristol-su/static-page/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/bristol-su/static-page/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/bristol-su/static-page/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/bristol-su/static-page/compare/v1.0...v1.0.1
