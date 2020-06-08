@@ -23,7 +23,8 @@ class ParticipantPageControllerTest extends TestCase
     public function the_correct_view_is_returned()
     {
         $this->givePermissionTo('static-page.view-page');
-
+        $this->givePermissionTo('static-page.click-button');
+        
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
         $response->assertViewIs('static-page::participant');
@@ -43,6 +44,7 @@ class ParticipantPageControllerTest extends TestCase
     public function a_page_view_is_created_on_page_load()
     {
         $this->givePermissionTo('static-page.view-page');
+        $this->givePermissionTo('static-page.click-button');
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
@@ -58,6 +60,7 @@ class ParticipantPageControllerTest extends TestCase
     public function an_event_is_fired_on_successful_page_load()
     {
         $this->givePermissionTo('static-page.view-page');
+        $this->givePermissionTo('static-page.click-button');
 
         Event::fake(PageViewed::class);
 

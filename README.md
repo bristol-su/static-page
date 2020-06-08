@@ -54,6 +54,7 @@ This module shows predefined HTML to the user.
 
 - Fully-featured WYSIWGY editor for defining the page
 - Track page views
+- Allow for a button to mark the module as complete
 
 ## Getting Started
 
