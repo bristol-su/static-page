@@ -103,7 +103,7 @@ class ButtonSubmitted implements TriggerableEvent
           'user_first_name' => $this->buttonClick->user->data()->firstName(),
           'user_last_name' => $this->buttonClick->user->data()->lastName(),
           'user_preferred_name' => $this->buttonClick->user->data()->preferredName(),
-          'clicked_at' => $this->buttonClick->clicked_at->format('Y-m-d H:i:s'),
+          'clicked_at' => $this->buttonClick->created_at->format('Y-m-d H:i:s'),
           'module_instance_id' => $moduleInstance->id,
           'module_instance_name' => $moduleInstance->name,
           'activity_instance_id' => $activityInstance->id,
