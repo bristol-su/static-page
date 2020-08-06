@@ -1,0 +1,26 @@
+name: Compile Assets
+
+on:
+    push:
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   name: Install dependencies
+                run: npm install
+
+            -   name: Build assets
+                run: npm run prod
+
+            -   name: Commit assets
+                uses: EndBug/add-and-commit@v4.3.0
+                with:
+                    # Change the name and email to your name and email address
+                    add: public/modules
+                    author_name: Toby Twigger
+                    author_email: tobytwigger1@gmail.com
+                    message: Compile assets for production
+                    force: true

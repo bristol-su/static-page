@@ -2,7 +2,9 @@
 
 namespace BristolSU\Module\Tests\StaticPage\Http\Controllers;
 
+use BristolSU\Module\StaticPage\Events\ButtonUnsubmitted;
 use BristolSU\Module\StaticPage\Events\PageViewed;
+use BristolSU\Module\StaticPage\Models\ButtonClick;
 use BristolSU\Module\Tests\StaticPage\TestCase;
 use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use Illuminate\Support\Facades\Event;
@@ -24,7 +26,8 @@ class ParticipantPageControllerTest extends TestCase
     {
         $this->givePermissionTo('static-page.view-page');
         $this->givePermissionTo('static-page.click-button');
-        
+        $this->givePermissionTo('static-page.delete-button-click');
+
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
         $response->assertViewIs('static-page::participant');
@@ -45,6 +48,7 @@ class ParticipantPageControllerTest extends TestCase
     {
         $this->givePermissionTo('static-page.view-page');
         $this->givePermissionTo('static-page.click-button');
+        $this->givePermissionTo('static-page.delete-button-click');
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
@@ -61,12 +65,13 @@ class ParticipantPageControllerTest extends TestCase
     {
         $this->givePermissionTo('static-page.view-page');
         $this->givePermissionTo('static-page.click-button');
+        $this->givePermissionTo('static-page.delete-button-click');
 
         Event::fake(PageViewed::class);
 
         $response = $this->get($this->userUrl('/'));
         $response->assertStatus(200);
-        
+
         Event::assertDispatched(PageViewed::class);
     }
 
@@ -81,5 +86,4 @@ class ParticipantPageControllerTest extends TestCase
 
         Event::assertNotDispatched(PageViewed::class);
     }
-
 }

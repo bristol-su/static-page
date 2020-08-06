@@ -9,17 +9,21 @@ class HtmlFieldTest extends TestCase
 {
 
     /** @test */
-    public function it_has_a_type(){
+    public function it_has_a_type()
+    {
         $typeProperty = (new \ReflectionClass(HtmlField::class))->getProperty('type');
         $typeProperty->setAccessible(true);
         $type = $typeProperty->getValue((new HtmlField()));
-     
+
         $this->assertEquals('staticPageHtml', $type);
     }
-    
+
     /** @test */
-    public function getAppendedAttributes_returns_an_empty_array(){
-        $this->assertEquals([], (new HtmlField())->getAppendedAttributes());
+    public function getAppendedAttributes_returns_an_array_of_attributes()
+    {
+        $this->assertEquals([
+          'apiKey' => ''
+        ], (new HtmlField())->getAppendedAttributes());
     }
-    
+
 }

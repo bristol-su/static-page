@@ -9,12 +9,13 @@ use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\Authentication\HasResource;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ButtonClick extends Model
 {
-    
-    use HasResource;
-    
+
+    use HasResource, SoftDeletes;
+
     protected $table = 'static_page_button_clicks';
 
     protected $appends = [
@@ -39,6 +40,6 @@ class ButtonClick extends Model
     {
         return app(ModuleInstanceRepository::class)->getById($this->module_instance_id);
     }
-    
+
 
 }

@@ -1,9 +1,9 @@
 <template>
     <div>
         <span v-html="html"></span>
-        
+
         <div v-if="canClickButton" style="text-align: right;">
-            <submit-button>{{buttonText}}</submit-button>
+            <submit-button can-unsubmit="canUnsubmit">{{buttonText}}</submit-button>
         </div>
     </div>
 </template>
@@ -23,6 +23,10 @@
                 type: String,
             },
             canClickButton: {
+                required: true,
+                type: Boolean
+            },
+            canUnsubmit: {
                 required: true,
                 type: Boolean
             }
