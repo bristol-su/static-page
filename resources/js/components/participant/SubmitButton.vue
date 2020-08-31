@@ -65,7 +65,10 @@ export default {
         submit() {
             this.loading = true;
             this.$http.post('/click')
-              .then(response => this.clicked = true)
+              .then(response => {
+                 this.clicked = true;
+                 this.click = response.data;
+               })
               .catch(error => this.$notify.alert('Could not submit: ' + error.response.data.message))
               .then(() => this.loading = false);
         }
