@@ -46,7 +46,7 @@ export default {
         handleClick() {
             if(this.canUnsubmit && this.clicked) {
                 this.deleteClicked();
-            } else if(this.clicked) {
+            } else if(!this.clicked) {
                 this.submit();
             }
         },
