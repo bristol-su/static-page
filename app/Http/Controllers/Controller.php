@@ -11,7 +11,7 @@ class Controller
     use AuthorizesRequests {
         authorize as baseAuthorize;
     }
-    
+
     use DispatchesJobs, ValidatesRequests;
 
     public function authorize($ability, $arguments = [])

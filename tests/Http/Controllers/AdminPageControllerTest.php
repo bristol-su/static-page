@@ -12,7 +12,7 @@ class AdminPageControllerTest extends TestCase
     public function a_403_error_is_returned_if_the_permission_is_not_owned()
     {
         $this->revokePermissionTo('static-page.admin.view-page');
-        
+
         $response = $this->get($this->adminUrl('/'));
         $response->assertStatus(403);
     }
@@ -21,7 +21,7 @@ class AdminPageControllerTest extends TestCase
     public function the_correct_view_is_returned()
     {
         $this->givePermissionTo('static-page.admin.view-page');
-        
+
         $response = $this->get($this->adminUrl('/'));
         $response->assertStatus(200);
         $response->assertViewIs('static-page::admin');

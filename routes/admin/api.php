@@ -11,11 +11,9 @@
 |
 */
 
+use BristolSU\Module\StaticPage\Http\Controllers\Api\Admin\ButtonController;
+use BristolSU\Module\StaticPage\Http\Controllers\Api\Admin\PageViewController;
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Api')->group(function() {
-    Route::namespace('Admin')->group(function() {
-        Route::apiResource('page-view', 'PageViewController')->only(['index']);
-        Route::apiResource('click', 'ButtonController')->only(['index']);
-    });
-});
+Route::apiResource('page-view', PageViewController::class)->only(['index']);
+Route::apiResource('click', ButtonController::class)->only(['index']);
