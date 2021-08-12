@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "bristol-su/support": "dev-portal-v4 as 4.0"
+        "bristol-su/support": "^5.0.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.19",
