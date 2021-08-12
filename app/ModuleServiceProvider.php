@@ -74,7 +74,7 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function namespace()
     {
-        return '\BristolSU\Module\StaticPage\Http\Controllers';
+        return null;
     }
 
     public function baseDirectory()

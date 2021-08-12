@@ -11,6 +11,7 @@
 |
 */
 
+use BristolSU\Module\StaticPage\Http\Controllers\AdminPageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'AdminPageController@index');
+Route::get('/', [AdminPageController::class, 'index']);

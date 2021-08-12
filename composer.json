@@ -2,6 +2,8 @@
     "name": "bristol-su/static-page",
     "description": "A static page module for the Bristol SU Portal Project, to display text or HTML",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Toby Twigger",
@@ -9,11 +11,13 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "bristol-su/support": "^4.0"
+        "php": "^8.0",
+        "bristol-su/support": "^5.0.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0"
+        "orchestra/testbench": "^6.19",
+        "laravel/legacy-factories": "^1.1",
+        "phpspec/prophecy-phpunit": "^2.0"
     },
     "autoload": {
         "psr-4": {

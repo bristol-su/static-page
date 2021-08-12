@@ -12,7 +12,7 @@ Vue.use(BootstrapVue);
 
 let vue = new Vue({
     el: '#static-page-root',
-    
+
     components: {
         ShowHtml,
         Admin

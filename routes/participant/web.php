@@ -13,4 +13,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'ParticipantPageController@index');
+Route::get('/', [\BristolSU\Module\StaticPage\Http\Controllers\ParticipantPageController::class, 'index']);

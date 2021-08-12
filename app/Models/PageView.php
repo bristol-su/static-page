@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 class PageView extends Model
 {
     use HasResource;
-    
+
     protected $table = 'static_page_page_views';
-    
+
     protected $appends = [
         'user', 'activity_instance', 'module_instance'
     ];
-    
+
     protected $fillable = [
         'viewed_by'
     ];
@@ -36,5 +36,16 @@ class PageView extends Model
     {
         return app(ModuleInstanceRepository::class)->getById($this->module_instance_id);
     }
-    
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+
 }
