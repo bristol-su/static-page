@@ -3,25 +3,15 @@
 @section('title', settings('title', 'Static Page'))
 
 @section('module-content')
-    <div class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="text-align: center;">
-                    @if(settings('title') !== null)
-                        <h1 class="">{{settings('title')}}</h1>
-                    @endif
-                    @if(settings('subtitle') !== null)
-                        <h2 class="text-muted">{!! settings('subtitle') !!}</h2>
-                    @endif
-                    <div style="padding-top: 20px;">
-                        <admin>
-                            
-                        </admin>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+    <p-page-content title="{{settings('title')}}" subtitle="{{settings('subtitle')}}">
+        <p-tabs>
+            <p-tab title="Button Clicks">
+                <button-clicks></button-clicks>
+            </p-tab>
+            <p-tab title="Page Views">
+                <page-views></page-views>
+            </p-tab>
+        </p-tabs>
+    </p-page-content>
 @endsection
 

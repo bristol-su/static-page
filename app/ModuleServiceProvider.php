@@ -86,8 +86,6 @@ class ModuleServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        $this->registerGlobalScript('modules/static-page/js/components.js');
-
         app(CompletionConditionManager::class)->register($this->alias(), 'static_page_has_viewed_page', HasViewedPage::class);
         app(CompletionConditionManager::class)->register($this->alias(), 'static_page_has_submitted', HasClickedSubmit::class);
 
@@ -103,11 +101,6 @@ class ModuleServiceProvider extends ServiceProvider
 
     }
 
-    public function register()
-    {
-        parent::register();
-    }
-
     /**
      * @inheritDoc
      */
@@ -115,19 +108,19 @@ class ModuleServiceProvider extends ServiceProvider
     {
         return \FormSchema\Generator\Form::make()->withGroup(
           Group::make('Layout')->withField(
-            Field::input('title')->inputType('text')->label('Title')
-              ->hint('The title of the page')->help('This will appear at the top of the page and in the browser tab.')
+            Field::textInput('title')->setLabel('Title')
+              ->setHint('The title of the page')->setTooltip('This will appear at the top of the page and in the browser tab.')
           )->withField(
-            Field::input('subtitle')->inputType('text')->label('Subtitle')
-              ->hint('The subtitle of the page')->help('This will appear below the title. You can use this to give more information about the page.')
+            Field::textInput('subtitle')->setLabel('Subtitle')
+              ->setHint('The subtitle of the page')->setTooltip('This will appear below the title. You can use this to give more information about the page.')
           )->withField(
-            Field::make(HtmlField::class, 'html')->label('Page Content')
-              ->apiKey(config('static-page.tinymce.apiKey'))
-              ->hint('The content of the page')->help('This is the main content of the page.')
+            Field::html('html')->setLabel('Page Content')
+              ->setApiKey(config('static-page.tinymce.apiKey', ''))
+              ->setHint('The content of the page')->setTooltip('This is the main content of the page.')
           )
         )->withGroup(
           Group::make('Button')->withField(
-            Field::input('button_text')->inputType('text')->label('Button Text')->hint('Text to show on the button')
+            Field::textInput('button_text')->setLabel('Button Text')->setHint('Text to show on the button')
           )
         )->getSchema();
     }

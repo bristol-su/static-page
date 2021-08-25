@@ -3,7 +3,7 @@
         <span v-html="html"></span>
 
         <div v-if="canClickButton" style="text-align: right;">
-            <submit-button can-unsubmit="canUnsubmit">{{buttonText}}</submit-button>
+            <submit-button :can-unsubmit="canUnsubmit">{{buttonText}}</submit-button>
         </div>
     </div>
 </template>

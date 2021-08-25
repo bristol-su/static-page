@@ -30,9 +30,9 @@ class HasViewedPage extends CompletionCondition
     {
         $count = PageView::forResource($activityInstance->id, $moduleInstance->id)->count();
         $needed = ( $settings['number_of_views'] ?? 1);
-        
+
         $percentage = (int) round(($count/$needed) * 100, 0);
-        
+
         if($percentage > 100) {
             return 100;
         }
@@ -50,9 +50,9 @@ class HasViewedPage extends CompletionCondition
     public function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
-            \FormSchema\Generator\Field::input('number_of_views')->inputType('number')->label('Number of Views')
-                ->required(true)->default(1)->hint('The number of times a user needs to view the page')
-                ->help('The number of times a user should view the page before the module is marked as complete. 1 will mark the module as complete on the first view, 2 on the second etc.')
+            \FormSchema\Generator\Field::number('number_of_views')->setLabel('Number of Views')
+                ->setRequired(true)->setValue(1)->setHint('The number of times a user needs to view the page')
+                ->setTooltip('The number of times a user should view the page before the module is marked as complete. 1 will mark the module as complete on the first view, 2 on the second etc.')
         )->getSchema();
     }
 

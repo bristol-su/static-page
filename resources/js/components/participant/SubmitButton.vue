@@ -1,8 +1,8 @@
 <template>
-    <b-button @click="handleClick" variant="primary" :disabled="loading || (!canUnsubmit && clicked)">
+    <p-button @click="handleClick" :disabled="loading || (!canUnsubmit && clicked)">
         <span v-if="clicked">Submitted. Click to unsubmit.</span>
         <span v-else><slot></slot></span>
-    </b-button>
+    </p-button>
 
 </template>
 
