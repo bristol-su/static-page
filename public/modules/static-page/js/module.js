@@ -472,7 +472,12 @@ var render = function() {
     },
     [
       _vm.clicked
-        ? _c("span", [_vm._v("Submitted. Click to unsubmit.")])
+        ? _c("span", [
+            _vm._v("Submitted."),
+            _vm.canUnsubmit
+              ? _c("span", [_vm._v(" Click to unsubmit.")])
+              : _vm._e()
+          ])
         : _c("span", [_vm._t("default")], 2)
     ]
   )
