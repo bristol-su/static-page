@@ -4,7 +4,7 @@
 
 @section('module-content')
     <p-page-content title="{{settings('title')}}" subtitle="{{settings('subtitle')}}">
-        <p-card-group title="{{ settings('title') }}">
+        <p-card-group>
             <show-html
                 html="{{settings('html', 'No content has been set.')}}"
                 :can-click-button="{{(app(\BristolSU\Support\Permissions\Contracts\PermissionTester::class)->evaluate('static-page.click-button')?'true':'false')}}"
