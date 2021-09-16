@@ -357,26 +357,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "w-full p-3" }, [
-    _c("span", {
-      staticClass: "p-5",
-      domProps: { innerHTML: _vm._s(_vm.html) }
-    }),
-    _vm._v(" "),
-    _vm.canClickButton
-      ? _c(
-          "div",
-          [
-            _c(
-              "submit-button",
-              { attrs: { "can-unsubmit": _vm.canUnsubmit } },
-              [_vm._v(_vm._s(_vm.buttonText))]
-            )
-          ],
-          1
-        )
-      : _vm._e()
-  ])
+  return _c(
+    "div",
+    { staticClass: "w-full p-3" },
+    [
+      _c("p-html-renderer", { attrs: { html: _vm.html } }),
+      _vm._v(" "),
+      _vm.canClickButton
+        ? _c(
+            "div",
+            [
+              _c(
+                "submit-button",
+                { attrs: { "can-unsubmit": _vm.canUnsubmit } },
+                [_vm._v(_vm._s(_vm.buttonText))]
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

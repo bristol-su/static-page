@@ -1,6 +1,6 @@
 <template>
     <div class="w-full p-3">
-        <span class="p-5" v-html="html"></span>
+        <p-html-renderer :html="html"></p-html-renderer>
         <div v-if="canClickButton">
             <submit-button :can-unsubmit="canUnsubmit">{{buttonText}}</submit-button>
         </div>
