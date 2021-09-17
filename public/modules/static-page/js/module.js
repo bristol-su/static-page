@@ -297,7 +297,11 @@ var render = function() {
     "div",
     [
       _c("p-table", {
-        attrs: { items: _vm.presentedButtonClicks, columns: _vm.fields }
+        attrs: {
+          items: _vm.presentedButtonClicks,
+          columns: _vm.fields,
+          busy: _vm.$isLoading("loading-button-clicks")
+        }
       })
     ],
     1
@@ -329,7 +333,11 @@ var render = function() {
     "div",
     [
       _c("p-table", {
-        attrs: { items: _vm.presentedPageViews, columns: _vm.fields }
+        attrs: {
+          items: _vm.presentedPageViews,
+          columns: _vm.fields,
+          busy: _vm.$isLoading("loading-page-views")
+        }
       })
     ],
     1
@@ -402,26 +410,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "p-button",
-    {
-      attrs: {
-        variant: _vm.clicked ? "success" : "primary",
-        disabled: _vm.loading || (!_vm.canUnsubmit && _vm.clicked)
-      },
-      on: { click: _vm.handleClick }
-    },
-    [
-      _vm.clicked
-        ? _c("span", [
-            _vm._v("Submitted."),
-            _vm.canUnsubmit
-              ? _c("span", [_vm._v(" Click to unsubmit.")])
-              : _vm._e()
-          ])
-        : _c("span", [_vm._t("default")], 2)
-    ]
-  )
+  return !_vm.$isLoading("checking-button-state")
+    ? _c(
+        "p-button",
+        {
+          attrs: {
+            variant: _vm.clicked ? "success" : "primary",
+            disabled: !_vm.canUnsubmit && _vm.clicked,
+            busy:
+              _vm.$isLoading("submit-button") ||
+              _vm.$isLoading("unsubmit-button"),
+            "busy-text": _vm.$isLoading("submit-button")
+              ? "Submitting..."
+              : "Unsubmitting..."
+          },
+          on: { click: _vm.handleClick }
+        },
+        [
+          _vm.clicked
+            ? _c("span", [
+                _vm._v("Submitted."),
+                _vm.canUnsubmit
+                  ? _c("span", [_vm._v(" Click to unsubmit.")])
+                  : _vm._e()
+              ])
+            : _c("span", [_vm._t("default")], 2)
+        ]
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -574,7 +590,9 @@ __webpack_require__.r(__webpack_exports__);
     loadButtonClicks: function loadButtonClicks() {
       var _this = this;
 
-      this.$http.get('/click').then(function (response) {
+      this.$http.get('/click', {
+        name: 'loading-button-clicks'
+      }).then(function (response) {
         return _this.buttonClicks = response.data;
       })["catch"](function (error) {
         return _this.$notify.alert('Could not load the button clicks');
@@ -628,7 +646,9 @@ __webpack_require__.r(__webpack_exports__);
     loadPageViews: function loadPageViews() {
       var _this = this;
 
-      this.$http.get('/page-view').then(function (response) {
+      this.$http.get('/page-view', {
+        name: 'loading-page-views'
+      }).then(function (response) {
         return _this.pageViews = response.data;
       })["catch"](function (error) {
         return _this.$notify.alert('Could not load the page views');
@@ -716,12 +736,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SubmitButton",
   data: function data() {
     return {
       clicked: false,
-      loading: false,
       click: null
     };
   },
@@ -738,8 +763,9 @@ __webpack_require__.r(__webpack_exports__);
     checkedClicked: function checkedClicked() {
       var _this = this;
 
-      this.loading = true;
-      this.$http.get('/click').then(function (response) {
+      this.$http.get('/click', {
+        name: 'checking-button-state'
+      }).then(function (response) {
         if (response.data.length > 0) {
           _this.clicked = true;
           _this.click = response.data[0];
@@ -748,8 +774,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         _this.$notify.alert('Could not load results: ' + error.response.data.message);
-      }).then(function () {
-        return _this.loading = false;
       });
     },
     handleClick: function handleClick() {
@@ -763,28 +787,26 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (this.click.id) {
-        this.loading = true;
-        this.$http["delete"]('/click/' + this.click.id).then(function (response) {
+        this.$http["delete"]('/click/' + this.click.id, {
+          name: 'unsubmit-button'
+        }).then(function (response) {
           _this2.clicked = false;
           _this2.click = null;
         })["catch"](function (error) {
           return _this2.$notify.alert('Could not remove button: ' + error.response.data.message);
-        })["finally"](function () {
-          return _this2.loading = false;
         });
       }
     },
     submit: function submit() {
       var _this3 = this;
 
-      this.loading = true;
-      this.$http.post('/click').then(function (response) {
+      this.$http.post('/click', {}, {
+        name: 'submit-button'
+      }).then(function (response) {
         _this3.clicked = true;
         _this3.click = response.data;
       })["catch"](function (error) {
         return _this3.$notify.alert('Could not submit: ' + error.response.data.message);
-      }).then(function () {
-        return _this3.loading = false;
       });
     }
   }

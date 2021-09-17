@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p-table :items="presentedPageViews" :columns="fields">
+        <p-table :items="presentedPageViews" :columns="fields" :busy="$isLoading('loading-page-views')">
         </p-table>
     </div>
 </template>
@@ -22,7 +22,7 @@
 
         methods: {
             loadPageViews() {
-                this.$http.get('/page-view')
+                this.$http.get('/page-view', {name: 'loading-page-views'})
                     .then(response => this.pageViews = response.data)
                     .catch(error => this.$notify.alert('Could not load the page views'));
             }

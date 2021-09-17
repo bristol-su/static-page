@@ -1,5 +1,11 @@
 <template>
-    <p-button @click="handleClick" :variant="(clicked ? 'success' : 'primary')"  :disabled="loading || (!canUnsubmit && clicked)">
+    <p-button
+        v-if="!$isLoading('checking-button-state')"
+        @click="handleClick"
+        :variant="(clicked ? 'success' : 'primary')"
+        :disabled="!canUnsubmit && clicked"
+        :busy="$isLoading('submit-button') || $isLoading('unsubmit-button')"
+        :busy-text="$isLoading('submit-button') ? 'Submitting...' : 'Unsubmitting...'">
         <span v-if="clicked">Submitted.<span v-if="canUnsubmit"> Click to unsubmit.</span></span>
         <span v-else><slot></slot></span>
     </p-button>
@@ -12,7 +18,6 @@ export default {
     data() {
         return {
             clicked: false,
-            loading: false,
             click: null
         }
     },
@@ -27,9 +32,8 @@ export default {
     },
     methods: {
         checkedClicked() {
-            this.loading = true;
 
-            this.$http.get('/click')
+            this.$http.get('/click', {name: 'checking-button-state'})
                 .then(response => {
                     if (response.data.length > 0) {
                         this.clicked = true;
@@ -41,7 +45,6 @@ export default {
                 .catch(error => {
                     this.$notify.alert('Could not load results: ' + error.response.data.message)
                 })
-                .then(() => this.loading = false);
         },
         handleClick() {
             if(this.canUnsubmit && this.clicked) {
@@ -52,25 +55,21 @@ export default {
         },
         deleteClicked() {
             if(this.click.id) {
-                this.loading = true;
-                this.$http.delete('/click/' + this.click.id)
+                this.$http.delete('/click/' + this.click.id, {name: 'unsubmit-button'})
                     .then(response => {
                         this.clicked = false;
                         this.click = null;
                     })
                     .catch(error => this.$notify.alert('Could not remove button: ' + error.response.data.message))
-                    .finally(() => this.loading = false);
             }
         },
         submit() {
-            this.loading = true;
-            this.$http.post('/click')
+            this.$http.post('/click', {}, {name: 'submit-button'})
                 .then(response => {
                     this.clicked = true;
                     this.click = response.data;
                 })
                 .catch(error => this.$notify.alert('Could not submit: ' + error.response.data.message))
-                .then(() => this.loading = false);
         }
     }
 }

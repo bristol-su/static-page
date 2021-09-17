@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p-table :items="presentedButtonClicks" :columns="fields">
+        <p-table :items="presentedButtonClicks" :columns="fields" :busy="$isLoading('loading-button-clicks')">
         </p-table>
     </div>
 </template>
@@ -22,7 +22,7 @@
 
         methods: {
             loadButtonClicks() {
-                this.$http.get('/click')
+                this.$http.get('/click', {name: 'loading-button-clicks'})
                     .then(response => this.buttonClicks = response.data)
                     .catch(error => this.$notify.alert('Could not load the button clicks'));
             }
