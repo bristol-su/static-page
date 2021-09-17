@@ -5,7 +5,7 @@
         :variant="(clicked ? 'success' : 'primary')"
         :disabled="!canUnsubmit && clicked"
         :busy="$isLoading('submit-button') || $isLoading('unsubmit-button')"
-        :busy-text="$isLoading('submit-button') ? 'Submitting...' : 'Unsubmitting...'">
+        :busy-text="$isLoading('submit-button') ? 'Submitting' : 'Unsubmitting'">
         <span v-if="clicked">Submitted.<span v-if="canUnsubmit"> Click to unsubmit.</span></span>
         <span v-else><slot></slot></span>
     </p-button>
