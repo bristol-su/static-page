@@ -421,8 +421,8 @@ var render = function() {
               _vm.$isLoading("submit-button") ||
               _vm.$isLoading("unsubmit-button"),
             "busy-text": _vm.$isLoading("submit-button")
-              ? "Submitting..."
-              : "Unsubmitting..."
+              ? "Submitting"
+              : "Unsubmitting"
           },
           on: { click: _vm.handleClick }
         },
