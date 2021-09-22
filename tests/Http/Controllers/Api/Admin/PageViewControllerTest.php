@@ -21,13 +21,13 @@ class PageViewControllerTest extends TestCase
     public function the_correct_data_is_returned(){
         $this->givePermissionTo('static-page.admin.page-view.index');
 
-        $incorrectPageViews = factory(PageView::class, 10)->create();
-        $correctPageViews = factory(PageView::class, 15)->create(['module_instance_id' => $this->getModuleInstance()->id]);
+        $incorrectPageViews = PageView::factory()->count(10)->create();
+        $correctPageViews = PageView::factory()->count(15)->create(['module_instance_id' => $this->getModuleInstance()->id]);
 
         $response = $this->getJson($this->adminApiUrl('page-view'));
         $response->assertStatus(200);
         $response->assertJsonCount(15);
         $response->assertJson($correctPageViews->toArray());
     }
-    
+
 }

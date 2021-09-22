@@ -1,10 +1,7 @@
 <template>
     <div>
-        <b-table :items="buttonClicks" :fields="fields">
-            <template v-slot:cell(user)="data">
-                {{data.item.user.data.first_name}} {{data.item.user.data.last_name}}
-            </template>
-        </b-table>
+        <p-table :items="presentedButtonClicks" :columns="fields" :busy="$isLoading('loading-button-clicks')">
+        </p-table>
     </div>
 </template>
 
@@ -15,11 +12,7 @@
         data() {
             return {
                 buttonClicks: [],
-                fields: [
-                    {key: 'user', text: 'User'},
-                    {key: 'created_at', text: 'Viewed At'},
-                    {key: 'activity_instance.name', text: 'Activity Instance Name'},
-                ]
+                fields: ['User', 'Viewed At', 'Activity Instance Name']
             }
         },
 
@@ -29,9 +22,20 @@
 
         methods: {
             loadButtonClicks() {
-                this.$http.get('/click')
+                this.$http.get('/click', {name: 'loading-button-clicks'})
                     .then(response => this.buttonClicks = response.data)
                     .catch(error => this.$notify.alert('Could not load the button clicks'));
+            }
+        },
+        computed: {
+            presentedButtonClicks() {
+                return this.buttonClicks.map(b => {
+                    return {
+                        'User': b.user.data.first_name + ' ' + b.user.data.last_name,
+                        'Viewed At': b.created_at,
+                        'Activity Instance Name': b.activity_instance.name
+                    }
+                })
             }
         }
     }

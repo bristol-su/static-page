@@ -16,4 +16,4 @@ use BristolSU\Module\StaticPage\Http\Controllers\Api\Admin\PageViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('page-view', PageViewController::class)->only(['index']);
-Route::apiResource('click', ButtonController::class)->only(['index']);
+Route::apiResource('click', ButtonController::class, ['as' => 'admin'])->only(['index']);

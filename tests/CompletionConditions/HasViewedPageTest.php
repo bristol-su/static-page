@@ -14,14 +14,14 @@ class HasViewedPageTest extends TestCase
 
     /** @test */
     public function isComplete_returns_true_if_the_number_of_page_views_is_greater_than_the_number_of_views(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
-        
-        $pageViews = factory(PageView::class, 5)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
+
+        $pageViews = PageView::factory()->count(5)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
-        
+
         $condition = new HasViewedPage('static-page');
         $this->assertTrue(
             $condition->isComplete(['number_of_views' => 4], $activityInstance, $moduleInstance)
@@ -30,10 +30,10 @@ class HasViewedPageTest extends TestCase
 
     /** @test */
     public function isComplete_returns_false_if_the_number_of_page_views_is_less_than_the_number_of_views(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
-        $pageViews = factory(PageView::class, 5)->create([
+        $pageViews = PageView::factory()->count(5)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
@@ -46,10 +46,10 @@ class HasViewedPageTest extends TestCase
 
     /** @test */
     public function isComplete_returns_true_if_the_number_of_page_views_is_equal_to_the_number_of_views(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
-        $pageViews = factory(PageView::class, 5)->create([
+        $pageViews = PageView::factory()->count(5)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
@@ -59,29 +59,29 @@ class HasViewedPageTest extends TestCase
             $condition->isComplete(['number_of_views' => 5], $activityInstance, $moduleInstance)
         );
     }
-    
+
     /** @test */
     public function percentage_returns_100_if_the_page_views_are_equal_to_the_required_number(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
-        $pageViews = factory(PageView::class, 5)->create([
+        $pageViews = PageView::factory()->count(5)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
 
         $condition = new HasViewedPage('static-page');
-        $this->assertEquals(100, 
+        $this->assertEquals(100,
             $condition->percentage(['number_of_views' => 5], $activityInstance, $moduleInstance)
         );
     }
 
     /** @test */
     public function percentage_returns_100_if_the_page_views_are_greater_than_the_required_number(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
-        $pageViews = factory(PageView::class, 10)->create([
+        $pageViews = PageView::factory()->count(10)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
@@ -94,25 +94,25 @@ class HasViewedPageTest extends TestCase
 
     /** @test */
     public function percentage_returns_0_if_the_page_views_are_zero(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $condition = new HasViewedPage('static-page');
         $this->assertEquals(0,
             $condition->percentage(['number_of_views' => 5], $activityInstance, $moduleInstance)
         );
     }
-    
+
     /** @test */
     public function percentage_returns_50_if_the_page_views_are_half_the_required_views(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
-        $pageViews = factory(PageView::class, 5)->create([
+        $pageViews = PageView::factory()->count(5)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
-        
+
         $condition = new HasViewedPage('static-page');
         $this->assertEquals(50,
             $condition->percentage(['number_of_views' => 10], $activityInstance, $moduleInstance)
@@ -121,10 +121,10 @@ class HasViewedPageTest extends TestCase
 
     /** @test */
     public function percentage_returns_75_if_the_page_views_are_three_quarters_the_required_views(){
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
-        $pageViews = factory(PageView::class, 3)->create([
+        $pageViews = PageView::factory()->count(3)->create([
             'module_instance_id' => $moduleInstance->id,
             'activity_instance_id' => $activityInstance->id
         ]);
@@ -134,26 +134,26 @@ class HasViewedPageTest extends TestCase
             $condition->percentage(['number_of_views' => 4], $activityInstance, $moduleInstance)
         );
     }
-    
+
     /** @test */
     public function the_alias_is_given(){
         $this->assertEquals('static_page_has_viewed_page', (new HasViewedPage('static-page'))->alias());
     }
-    
+
     /** @test */
     public function name_returns_a_string(){
         $this->assertIsString((new HasViewedPage('static-page'))->name());
     }
-    
+
     /** @test */
     public function description_returns_a_string(){
         $this->assertIsString((new HasViewedPage('static-page'))->description());
     }
-    
+
     /** @test */
     public function options_returns_a_form_schema(){
         $this->assertInstanceOf(Form::class, (new HasViewedPage('static-page'))->options());
     }
-    
-    
+
+
 }

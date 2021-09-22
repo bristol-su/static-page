@@ -11,23 +11,23 @@ class ButtonControllerTest extends TestCase
     /** @test */
     public function index_returns_all_button_clicks_for_the_module(){
         $this->bypassAuthorization();
-        
-        $buttonClick1 = factory(ButtonClick::class)->create([
+
+        $buttonClick1 = ButtonClick::factory()->create([
             'activity_instance_id' => $this->getActivityInstance()->id,
             'module_instance_id' => $this->getModuleInstance()->id()
         ]);
-        $buttonClick2 = factory(ButtonClick::class)->create([
+        $buttonClick2 = ButtonClick::factory()->create([
             'module_instance_id' => $this->getModuleInstance()->id()
         ]);
-        $buttonClick3 = factory(ButtonClick::class)->create();
-        
+        $buttonClick3 = ButtonClick::factory()->create();
+
         $response = $this->getJson($this->adminApiUrl('/click'));
         $response->assertStatus(200);
         $response->assertJsonCount(2);
         $response->assertJsonFragment(['id' => $buttonClick1->id, 'clicked_by' => (string) $buttonClick1->clicked_by]);
         $response->assertJsonFragment(['id' => $buttonClick2->id, 'clicked_by' => (string) $buttonClick2->clicked_by]);
     }
-    
+
     /** @test */
     public function index_needs_the_permission()
     {
@@ -35,5 +35,5 @@ class ButtonControllerTest extends TestCase
         $response = $this->getJson($this->adminApiUrl('/click'));
         $response->assertStatus(200);
     }
-    
+
 }

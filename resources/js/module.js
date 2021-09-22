@@ -1,20 +1,17 @@
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
-import http from '@bristol-su/http-client';
-import AWN from "awesome-notifications";
-
+import Toolkit from '@bristol-su/frontend-toolkit';
 import ShowHtml from './components/participant/ShowHtml';
-import Admin from './components/admin/Admin';
+import ButtonClicks from './components/admin/ButtonClicks';
+import PageViews from './components/admin/PageViews';
 
-Vue.prototype.$http = http;
-Vue.prototype.$notify = new AWN({position: 'top-right'});
-Vue.use(BootstrapVue);
+Vue.use(Toolkit);
 
 let vue = new Vue({
     el: '#static-page-root',
 
     components: {
         ShowHtml,
-        Admin
+        ButtonClicks,
+        PageViews
     }
 });

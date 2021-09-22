@@ -5,3 +5,4 @@ node_modules
 report.*
 /coverage
 public/modules
+.phpunit.result.cache
