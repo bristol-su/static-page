@@ -16,15 +16,15 @@ class ButtonControllerTest extends TestCase
     {
         $this->bypassAuthorization();
 
-        $buttonClick1 = factory(ButtonClick::class)->create([
+        $buttonClick1 = ButtonClick::factory()->create([
           'activity_instance_id' => $this->getActivityInstance()->id,
           'module_instance_id' => $this->getModuleInstance()->id()
         ]);
-        $buttonClick2 = factory(ButtonClick::class)->create([
+        $buttonClick2 = ButtonClick::factory()->create([
           'activity_instance_id' => $this->getActivityInstance()->id,
           'module_instance_id' => $this->getModuleInstance()->id()
         ]);
-        $buttonClick3 = factory(ButtonClick::class)->create();
+        $buttonClick3 = ButtonClick::factory()->create();
 
         $response = $this->getJson($this->userApiUrl('/click'));
         $response->assertStatus(200);
@@ -88,7 +88,7 @@ class ButtonControllerTest extends TestCase
     public function a_button_click_can_be_deleted()
     {
         $this->bypassAuthorization();
-        $click = factory(ButtonClick::class)->create([
+        $click = ButtonClick::factory()->create([
           'module_instance_id' => $this->getModuleInstance()->id(),
           'activity_instance_id' => $this->getActivityInstance()->id
         ]);
@@ -105,7 +105,7 @@ class ButtonControllerTest extends TestCase
     public function a_404_is_returned_if_the_module_instance_is_wrong()
     {
         $this->bypassAuthorization();
-        $click = factory(ButtonClick::class)->create([
+        $click = ButtonClick::factory()->create([
           'activity_instance_id' => $this->getActivityInstance()->id
         ]);
 
@@ -117,7 +117,7 @@ class ButtonControllerTest extends TestCase
     public function a_403_is_returned_if_the_activity_instance_is_wrong()
     {
         $this->bypassAuthorization();
-        $click = factory(ButtonClick::class)->create([
+        $click = ButtonClick::factory()->create([
           'module_instance_id' => $this->getModuleInstance()->id(),
         ]);
 
@@ -129,7 +129,7 @@ class ButtonControllerTest extends TestCase
     public function a_button_click_is_deleted_if_the_permission_is_owned()
     {
         $this->givePermissionTo('static-page.delete-button-click');
-        $click = factory(ButtonClick::class)->create([
+        $click = ButtonClick::factory()->create([
           'module_instance_id' => $this->getModuleInstance()->id(),
           'activity_instance_id' => $this->getActivityInstance()->id
         ]);
@@ -146,7 +146,7 @@ class ButtonControllerTest extends TestCase
     public function a_button_click_is_not_deleted_if_the_permission_is_not_owned()
     {
         $this->revokePermissionTo('static-page.delete-button-click');
-        $click = factory(ButtonClick::class)->create([
+        $click = ButtonClick::factory()->create([
           'module_instance_id' => $this->getModuleInstance()->id(),
           'activity_instance_id' => $this->getActivityInstance()->id
         ]);
@@ -164,7 +164,7 @@ class ButtonControllerTest extends TestCase
     public function an_event_is_fired_if_the_button_is_deleted()
     {
         $this->bypassAuthorization();
-        $click = factory(ButtonClick::class)->create([
+        $click = ButtonClick::factory()->create([
           'module_instance_id' => $this->getModuleInstance()->id(),
           'activity_instance_id' => $this->getActivityInstance()->id
         ]);

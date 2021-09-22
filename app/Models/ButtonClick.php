@@ -8,13 +8,15 @@ use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\Authentication\HasResource;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository;
+use Database\StaticPage\Factories\ButtonClickFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ButtonClick extends Model
 {
 
-    use HasResource, SoftDeletes;
+    use HasResource, SoftDeletes, HasFactory;
 
     protected $table = 'static_page_button_clicks';
 
@@ -50,6 +52,16 @@ class ButtonClick extends Model
     protected function serializeDate(\DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return ButtonClickFactory
+     */
+    protected static function newFactory()
+    {
+        return new ButtonClickFactory();
     }
 
 }

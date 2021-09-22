@@ -14,8 +14,8 @@ class ButtonClickTest extends TestCase
     /** @test */
     public function user_attribute_returns_the_user()
     {
-        $user = factory(User::class)->create();
-        $buttonClick = factory(ButtonClick::class)->create([
+        $user = User::factory()->create();
+        $buttonClick = ButtonClick::factory()->create([
             'clicked_by' => $user->id()
         ]);
 
@@ -26,8 +26,8 @@ class ButtonClickTest extends TestCase
     /** @test */
     public function activityInstance_attribute_returns_the_activity_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $buttonClick = factory(ButtonClick::class)->create([
+        $activityInstance = ActivityInstance::factory()->create();
+        $buttonClick = ButtonClick::factory()->create([
             'activity_instance_id' => $activityInstance->id
         ]);
 
@@ -38,8 +38,8 @@ class ButtonClickTest extends TestCase
     /** @test */
     public function moduleInstance_attribute_returns_the_module_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $buttonClick = factory(ButtonClick::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $buttonClick = ButtonClick::factory()->create([
             'module_instance_id' => $moduleInstance->id
         ]);
 
@@ -50,10 +50,10 @@ class ButtonClickTest extends TestCase
     /** @test */
     public function all_additional_properties_are_returned_as_an_array()
     {
-        $user = factory(User::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $buttonClick = factory(ButtonClick::class)->create([
+        $user = User::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $buttonClick = ButtonClick::factory()->create([
             'clicked_by' => $user->id(),
             'activity_instance_id' => $activityInstance->id,
             'module_instance_id' => $moduleInstance->id

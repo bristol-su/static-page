@@ -14,8 +14,8 @@ class PageViewTest extends TestCase
     /** @test */
     public function user_attribute_returns_the_user()
     {
-        $user = factory(User::class)->create();
-        $pageView = factory(PageView::class)->create([
+        $user = User::factory()->create();
+        $pageView = PageView::factory()->create([
             'viewed_by' => $user->id()
         ]);
 
@@ -26,8 +26,8 @@ class PageViewTest extends TestCase
     /** @test */
     public function activityInstance_attribute_returns_the_activity_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $pageView = factory(PageView::class)->create([
+        $activityInstance = ActivityInstance::factory()->create();
+        $pageView = PageView::factory()->create([
             'activity_instance_id' => $activityInstance->id
         ]);
 
@@ -38,8 +38,8 @@ class PageViewTest extends TestCase
     /** @test */
     public function moduleInstance_attribute_returns_the_module_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $pageView = factory(PageView::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $pageView = PageView::factory()->create([
             'module_instance_id' => $moduleInstance->id
         ]);
 
@@ -50,10 +50,10 @@ class PageViewTest extends TestCase
     /** @test */
     public function all_additional_properties_are_returned_as_an_array()
     {
-        $user = factory(User::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $pageView = factory(PageView::class)->create([
+        $user = User::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $pageView = PageView::factory()->create([
             'viewed_by' => $user->id(),
             'activity_instance_id' => $activityInstance->id,
             'module_instance_id' => $moduleInstance->id

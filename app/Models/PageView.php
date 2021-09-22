@@ -6,11 +6,13 @@ use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\Authentication\HasResource;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository;
+use Database\StaticPage\Factories\PageViewFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PageView extends Model
 {
-    use HasResource;
+    use HasResource, HasFactory;
 
     protected $table = 'static_page_page_views';
 
@@ -46,6 +48,16 @@ class PageView extends Model
     protected function serializeDate(\DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return PageViewFactory
+     */
+    protected static function newFactory()
+    {
+        return new PageViewFactory();
     }
 
 }

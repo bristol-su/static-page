@@ -15,25 +15,25 @@ class PageViewedTest extends TestCase
 
     /** @test */
     public function getFields_returns_the_fields_from_the_pageview(){
-        $dataUser = factory(DataUser::class)->create([
+        $dataUser = DataUser::factory()->create([
             'email' => 'myemail@email.com',
             'first_name' => 'Toby',
             'last_name' => 'Twigger',
             'preferred_name' => 'Toby Twigger2'
         ]);
-        
-        $user = factory(User::class)->create(['data_provider_id' => $dataUser->id()]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['name' => 'ModInst1']);
-        $activityInstance = factory(ActivityInstance::class)->create(['name' => 'ActInst1']);
-        
-        $pageView = factory(PageView::class)->create([
+
+        $user = User::factory()->create(['data_provider_id' => $dataUser->id()]);
+        $moduleInstance = ModuleInstance::factory()->create(['name' => 'ModInst1']);
+        $activityInstance = ActivityInstance::factory()->create(['name' => 'ActInst1']);
+
+        $pageView = PageView::factory()->create([
             'viewed_by' => $user->id(),
             'activity_instance_id' => $activityInstance->id,
             'module_instance_id' => $moduleInstance->id
         ]);
-        
+
         $event = new PageViewed($pageView);
-        
+
         $this->assertEquals([
             'user_id' => $dataUser->id(),
             'user_email' => 'myemail@email.com',
@@ -45,20 +45,20 @@ class PageViewedTest extends TestCase
             'activity_instance_id' => $activityInstance->id,
             'activity_instance_name' => 'ActInst1',
         ], $event->getFields());
-        
+
     }
-    
+
     /** @test */
     public function getFieldMetaData_returns_an_array_with_the_required_keys(){
-        $pageView = factory(PageView::class)->create();
+        $pageView = PageView::factory()->create();
         $event = new PageViewed($pageView);
-        
+
         $requiredFields = array_keys($event->getFields());
         $actualFields = PageViewed::getFieldMetaData();
-        
+
         foreach($requiredFields as $requiredField) {
             $this->assertArrayHasKey($requiredField, $actualFields);
         }
     }
-    
+
 }
